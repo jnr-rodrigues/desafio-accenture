@@ -1,0 +1,23 @@
+{
+  "name": "desafio-accenture",
+  "version": "1.0.0",
+  "description": "Desafio Técnico da Accenture Brasil | QA Automação | Junior Rodrigues",
+  "main": "cypress.config.js",
+  "dependencies": {
+    "cypress": "^15.3.0"
+  },
+  "scripts": {
+    "test": "npx cypress run",
+    "start": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnr-rodrigues/desafio-accenture.git"
+  },
+  "author": "jnr-rodrigues",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jnr-rodrigues/desafio-accenture/issues"
+  },
+  "homepage": "https://github.com/jnr-rodrigues/desafio-accenture#readme"
+}

@@ -171,3 +171,21 @@ Cypress.Commands.add('deleteBonusRecord', (selectors, initialId) => {
 
     attemptDelete(currentId);
 });
+
+Cypress.Commands.add('simulateDragAndDrop', { prevSubject: 'element' }, (subject, targetSelector) => {
+    cy.get(targetSelector).then($target => {
+        const coords = $target.get(0).getBoundingClientRect();
+        const targetX = coords.left + (coords.width / 2);
+        const targetY = coords.top + (coords.height / 2);
+
+        cy.wrap(subject)
+            .scrollIntoView()
+            .trigger('mousedown', { which: 1, button: 0 });
+
+        cy.get(targetSelector)
+            .trigger('mousemove', { clientX: targetX, clientY: targetY, force: true });
+
+        cy.get(targetSelector)
+            .trigger('mouseup', { force: true });
+    });
+});

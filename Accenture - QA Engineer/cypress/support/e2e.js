@@ -124,3 +124,50 @@ Cypress.Commands.add('abrirValidarNovaJanela', (selectorDoBotao, mensagemEsperad
     cy.go('back');
     cy.contains('Browser Windows').should('be.visible');
 });
+
+Cypress.Commands.add('criarRegistro', (selectors, data) => {
+    cy.get(selectors.addButton).click();
+
+    cy.get(selectors.firstNameInput)
+        .should('exist')
+        .and('be.visible')
+        .and('not.have.attr', 'disabled');
+
+    cy.get(selectors.firstNameInput).type(data.firstName);
+    cy.get(selectors.lastNameInput).type(data.lastName);
+    cy.get(selectors.emailInput).type(data.email);
+    cy.get(selectors.ageInput).type(data.age);
+    cy.get(selectors.salaryInput).type(data.salary);
+    cy.get(selectors.departmentInput).type(data.department);
+
+    cy.get(selectors.submitButton).click();
+
+    cy.get(selectors.firstNameInput).should('not.exist');
+});
+
+Cypress.Commands.add('validarRemocaoEmMassa', (dataArray) => {
+    cy.wrap(dataArray).each((record) => {
+        cy.contains('.rt-tbody', record.firstName).should('not.exist');
+    });
+});
+
+Cypress.Commands.add('deleteBonusRecord', (selectors, initialId) => {
+    let currentId = initialId;
+
+    const attemptDelete = (id) => {
+        const deleteSelector = selectors.deleteIconId(id);
+
+        cy.get('body').then(($body) => {
+            if ($body.find(deleteSelector).length) {
+                cy.get(deleteSelector).should('be.visible').click();
+            } else {
+                currentId++;
+                if (currentId <= 15) {
+                    attemptDelete(currentId);
+                }
+            }
+        });
+    };
+
+    attemptDelete(currentId);
+});

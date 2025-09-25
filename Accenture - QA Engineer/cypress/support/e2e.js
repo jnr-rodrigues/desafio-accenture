@@ -71,3 +71,40 @@ Cypress.Commands.add('apiGetBooks', () => {
         return response.body.books;
     });
 });
+
+Cypress.Commands.add('preencherCamposIniciais', (selectors, userData) => {
+    cy.get(selectors.firstName).type(userData.firstName).should('have.value', userData.firstName);
+    cy.get(selectors.lastName).type(userData.lastName).should('have.value', userData.lastName);
+    cy.get(selectors.email).type(userData.email).should('have.value', userData.email);
+    cy.get(selectors.mobile).type(userData.mobile).should('have.value', userData.mobile);
+});
+
+Cypress.Commands.add('selecionarOpcoes', (selectors) => {
+    cy.get(selectors.genderMaleLabel).click();
+    cy.get(selectors.genderMaleInput).should('be.checked');
+
+    cy.get(selectors.hobbiesSportsLabel).click();
+    cy.get(selectors.hobbiesSportsInput).should('be.checked');
+});
+
+Cypress.Commands.add('preencherDataAssuntosUpload', (selectors) => {
+    cy.get(selectors.dateOfBirth).click();
+    cy.get(selectors.yearSelect).should('be.visible').select('1990');
+    cy.get(selectors.monthSelect).should('be.visible').select('0');
+    cy.get(selectors.daySelect).should('be.visible').click();
+
+    cy.get(selectors.subjectsInputContainer).click().type("English{enter}Computer Science{enter}");
+
+    cy.get(selectors.uploadPictureLabel).scrollIntoView().click();
+    cy.get(selectors.uploadPictureInput).selectFile('cypress/fixtures/upload-file.txt');
+});
+
+Cypress.Commands.add('preencherEnderecoCompleto', (selectors, userData) => {
+    cy.get(selectors.currentAddress).scrollIntoView().type(userData.currentAddress);
+
+    cy.get(selectors.stateDropdown).scrollIntoView().click();
+    cy.get('#state input').type(`${userData.state}{enter}`);
+
+    cy.get(selectors.cityDropdown).click();
+    cy.get('#city input').type(`${userData.city}{enter}`);
+});

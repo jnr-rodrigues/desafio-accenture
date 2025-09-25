@@ -4,10 +4,11 @@
   "description": "Desafio Técnico da Accenture Brasil | QA Automação | Junior Rodrigues",
   "main": "cypress.config.js",
   "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^23.2.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.6",
     "cypress": "^15.3.0"
   },
   "scripts": {
-    "test": "npx cypress run",
     "start": "npx cypress open"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/jnr-rodrigues/desafio-accenture/issues"
   },
-  "homepage": "https://github.com/jnr-rodrigues/desafio-accenture#readme"
+  "homepage": "https://github.com/jnr-rodrigues/desafio-accenture#readme",
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/e2e/**/*.js"
+  }
 }

@@ -1,3 +1,10 @@
+
+beforeEach(() => {
+    cy.intercept('https://*.googlesyndication.com/**', { statusCode: 204 });
+    cy.intercept('https://*.doubleclick.net/**', { statusCode: 204 });
+    cy.intercept('https://*.stat-rock.com/**', { statusCode: 204 });
+});
+
 Cypress.Commands.add('apiLogin', (username, password) => {
     let userId, token;
 

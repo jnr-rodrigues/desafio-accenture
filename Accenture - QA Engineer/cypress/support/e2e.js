@@ -108,3 +108,19 @@ Cypress.Commands.add('preencherEnderecoCompleto', (selectors, userData) => {
     cy.get(selectors.cityDropdown).click();
     cy.get('#city input').type(`${userData.city}{enter}`);
 });
+
+Cypress.Commands.add('abrirValidarNovaJanela', (selectorDoBotao, mensagemEsperada) => {
+    cy.window().then((win) => {
+        cy.stub(win, 'open').callsFake((url) => {
+            win.location.href = url;
+        });
+    });
+
+    cy.get(selectorDoBotao)
+        .should('be.visible')
+        .click();
+
+    cy.contains(mensagemEsperada).should('be.visible');
+    cy.go('back');
+    cy.contains('Browser Windows').should('be.visible');
+});
